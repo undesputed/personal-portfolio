@@ -44,6 +44,7 @@ export const sendContactEmail = async (formData: ContactFormData): Promise<Email
     const templateParams = {
       from_name: formData.name,
       from_email: formData.email,
+      to_email: 'eirracyu12@gmail.com', // Your email address
       subject: formData.subject,
       message: formData.message,
       sent_date: new Date().toLocaleString('en-US', {
