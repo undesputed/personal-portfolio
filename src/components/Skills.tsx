@@ -4,7 +4,6 @@ import { motion } from 'framer-motion'
 import { Code, Database, Cloud, Smartphone, Users, Globe } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
 
 const Skills = () => {
   const containerVariants = {

@@ -119,10 +119,10 @@ const About = () => {
                   Professional Philosophy
                 </h4>
                 <p className="text-gray-600 italic max-w-3xl mx-auto">
-                  "Looking for a challenging role in a reputable organization to utilize my technical, 
+                  &ldquo;Looking for a challenging role in a reputable organization to utilize my technical, 
                   database, and management skills for the growth of the organization as well as to 
                   enhance my knowledge about new and emerging trends in the IT sector. Flexibility 
-                  and open-mindedness are my strengths."
+                  and open-mindedness are my strengths.&rdquo;
                 </p>
               </CardContent>
             </Card>

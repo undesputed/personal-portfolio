@@ -83,7 +83,7 @@ const Contact = () => {
       } else {
         showNotification('error', response.message)
       }
-    } catch (error) {
+    } catch {
       showNotification('error', 'An unexpected error occurred. Please try again later.')
     } finally {
       setIsSubmitting(false)
@@ -131,7 +131,7 @@ const Contact = () => {
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Get In Touch</h2>
             <div className="w-24 h-1 bg-blue-600 mx-auto mb-8"></div>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              I'm always open to discussing new opportunities, collaborations, or just having a chat about technology and development.
+              I&apos;m always open to discussing new opportunities, collaborations, or just having a chat about technology and development.
             </p>
           </motion.div>
 
@@ -206,9 +206,9 @@ const Contact = () => {
                     <CardContent className="p-6">
                       <h4 className="text-lg font-semibold text-gray-900 mb-3">Availability</h4>
                       <p className="text-gray-600 mb-4">
-                        I'm currently open to new opportunities and collaborations. 
+                        I&apos;m currently open to new opportunities and collaborations. 
                         Whether you have a project in mind or just want to connect, 
-                        I'd love to hear from you!
+                        I&apos;d love to hear from you!
                       </p>
                       <Button className="flex items-center gap-2" onClick={generateResumePDF}>
                         <Download className="w-4 h-4" />

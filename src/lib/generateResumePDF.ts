@@ -72,7 +72,7 @@ export const generateResumePDF = () => {
   // Experience Section
   yPosition = addSectionHeader('PROFESSIONAL EXPERIENCE', yPosition);
   
-  resumeData.experience.forEach((exp, index) => {
+  resumeData.experience.forEach((exp) => {
     checkNewPage(50); // Reserve space for experience entry
     
     // Company and Position
@@ -137,7 +137,7 @@ export const generateResumePDF = () => {
   // Projects Section
   yPosition = addSectionHeader('KEY PROJECTS', yPosition);
   
-  resumeData.projects.forEach((project, index) => {
+  resumeData.projects.forEach((project) => {
     checkNewPage(40); // Reserve space for project entry
     
     // Project Title and Type

@@ -5,6 +5,7 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://carrie-yu-portfolio.vercel.app'),
   title: 'Carrie A. Yu - Software Developer Portfolio',
   description: 'Experienced Software Developer specializing in React, React Native, Java, Spring Boot, and full-stack development. Team leader with 5+ years of experience in building scalable applications.',
   keywords: 'Software Developer, React, React Native, Java, Spring Boot, Full Stack Developer, Web Development, Mobile Development',
