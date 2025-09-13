@@ -45,6 +45,7 @@ export const sendContactEmail = async (formData: ContactFormData): Promise<Email
       from_name: formData.name,
       from_email: formData.email,
       to_email: 'eirracyu12@gmail.com', // Your email address
+      reply_to: formData.email, // For reply-to functionality
       subject: formData.subject,
       message: formData.message,
       sent_date: new Date().toLocaleString('en-US', {
@@ -58,11 +59,17 @@ export const sendContactEmail = async (formData: ContactFormData): Promise<Email
     };
 
     // Send email using EmailJS
+    console.log('Sending email with params:', templateParams);
+    console.log('Service ID:', EMAILJS_SERVICE_ID);
+    console.log('Template ID:', EMAILJS_TEMPLATE_ID);
+    
     const response = await emailjs.send(
       EMAILJS_SERVICE_ID,
       EMAILJS_TEMPLATE_ID,
       templateParams
     );
+
+    console.log('EmailJS Response:', response);
 
     if (response.status === 200) {
       return {
@@ -70,23 +77,35 @@ export const sendContactEmail = async (formData: ContactFormData): Promise<Email
         message: 'Thank you for your message! I will get back to you as soon as possible.'
       };
     } else {
-      throw new Error('Failed to send email. Please try again.');
+      throw new Error(`Failed to send email. Status: ${response.status}`);
     }
 
-  } catch (error) {
-    console.error('EmailJS Error:', error);
+  } catch (error: any) {
+    console.error('EmailJS Error Details:', error);
+    console.error('Error type:', typeof error);
+    console.error('Error keys:', Object.keys(error || {}));
     
-    // Return user-friendly error messages
-    if (error instanceof Error) {
-      return {
-        success: false,
-        message: error.message
-      };
+    // Extract error message from EmailJS error object
+    let errorMessage = 'An unexpected error occurred. Please try again later.';
+    
+    if (error) {
+      // EmailJS errors often have a 'text' property
+      if (error.text) {
+        errorMessage = error.text;
+      } else if (error.message) {
+        errorMessage = error.message;
+      } else if (error.status) {
+        errorMessage = `Email service error (Status: ${error.status})`;
+      } else if (typeof error === 'string') {
+        errorMessage = error;
+      }
     }
+    
+    console.error('Extracted error message:', errorMessage);
     
     return {
       success: false,
-      message: 'An unexpected error occurred. Please try again later.'
+      message: errorMessage
     };
   }
 };
