@@ -8,7 +8,6 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
-import { generateResumePDF } from '@/lib/generateResumePDF'
 import { sendContactEmail, ContactFormData } from '@/lib/emailService'
 import Notification from './Notification'
 
@@ -210,10 +209,19 @@ const Contact = () => {
                         Whether you have a project in mind or just want to connect, 
                         I&apos;d love to hear from you!
                       </p>
-                      <Button className="flex items-center gap-2" onClick={generateResumePDF}>
-                        <Download className="w-4 h-4" />
-                        Download Resume
-                      </Button>
+                             <Button 
+                               className="flex items-center gap-2" 
+                               asChild
+                             >
+                               <a
+                                 href="https://docs.google.com/document/d/1xfcEfHy59FcFnKUwma5_oNAh6_0eZ0N5LzTEH3BbtLs/edit?tab=t.0"
+                                 target="_blank"
+                                 rel="noopener noreferrer"
+                               >
+                                 <Download className="w-4 h-4" />
+                                 Download Resume
+                               </a>
+                             </Button>
                     </CardContent>
                   </Card>
                 </CardContent>

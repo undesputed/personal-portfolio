@@ -80,7 +80,7 @@ export const sendContactEmail = async (formData: ContactFormData): Promise<Email
       throw new Error(`Failed to send email. Status: ${response.status}`);
     }
 
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('EmailJS Error Details:', error);
     console.error('Error type:', typeof error);
     console.error('Error keys:', Object.keys(error || {}));
@@ -88,17 +88,18 @@ export const sendContactEmail = async (formData: ContactFormData): Promise<Email
     // Extract error message from EmailJS error object
     let errorMessage = 'An unexpected error occurred. Please try again later.';
     
-    if (error) {
+    if (error && typeof error === 'object') {
+      const errorObj = error as Record<string, unknown>;
       // EmailJS errors often have a 'text' property
-      if (error.text) {
-        errorMessage = error.text;
-      } else if (error.message) {
-        errorMessage = error.message;
-      } else if (error.status) {
-        errorMessage = `Email service error (Status: ${error.status})`;
-      } else if (typeof error === 'string') {
-        errorMessage = error;
+      if (typeof errorObj.text === 'string') {
+        errorMessage = errorObj.text;
+      } else if (typeof errorObj.message === 'string') {
+        errorMessage = errorObj.message;
+      } else if (typeof errorObj.status === 'number') {
+        errorMessage = `Email service error (Status: ${errorObj.status})`;
       }
+    } else if (typeof error === 'string') {
+      errorMessage = error;
     }
     
     console.error('Extracted error message:', errorMessage);

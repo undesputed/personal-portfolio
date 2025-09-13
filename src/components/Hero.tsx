@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion'
 import { Download, Github, Linkedin, Mail } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { generateResumePDF } from '@/lib/generateResumePDF'
+// Removed PDF generation import - now using Google Drive resume
 import Image from 'next/image'
 
 const Hero = () => {
@@ -180,14 +180,24 @@ const Hero = () => {
             and mentoring development teams.
           </motion.p>
           
-          <motion.div
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12"
-            variants={itemVariants}
-          >
-            <Button size="lg" className="flex items-center gap-2" onClick={generateResumePDF}>
-              <Download size={20} />
-              Download Resume
-            </Button>
+                 <motion.div
+                   className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12"
+                   variants={itemVariants}
+                 >
+                   <Button 
+                     size="lg" 
+                     className="flex items-center gap-2" 
+                     asChild
+                   >
+                     <a
+                       href="https://docs.google.com/document/d/1xfcEfHy59FcFnKUwma5_oNAh6_0eZ0N5LzTEH3BbtLs/edit?tab=t.0"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                     >
+                       <Download size={20} />
+                       Download Resume
+                     </a>
+                   </Button>
             <Button 
               variant="outline" 
               size="lg"
