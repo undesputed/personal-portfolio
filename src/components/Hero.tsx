@@ -3,28 +3,11 @@
 import { motion } from 'framer-motion'
 import { Download, Github, Linkedin, Mail } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-// Removed PDF generation import - now using Google Drive resume
 import Image from 'next/image'
+import { containerVariants, itemVariants } from '@/lib/animations'
+import { CONTACT, SITE } from '@/config/site'
 
 const Hero = () => {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        delayChildren: 0.3,
-        staggerChildren: 0.2
-      }
-    }
-  }
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1
-    }
-  }
 
   return (
     <section id="home" className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 pt-20 relative overflow-hidden">
@@ -148,7 +131,7 @@ const Hero = () => {
             <div className="w-32 h-32 mx-auto rounded-full overflow-hidden shadow-lg">
               <Image
                 src="/logo.png"
-                alt="Carrie A. Yu Logo"
+                alt={`${SITE.name} profile`}
                 width={128}
                 height={128}
                 className="w-full h-full object-contain"
@@ -161,7 +144,7 @@ const Hero = () => {
             className="text-5xl md:text-6xl font-bold text-gray-900 mb-6"
             variants={itemVariants}
           >
-            Carrie A. Yu
+            {SITE.name}
           </motion.h1>
           
           <motion.h2
@@ -190,7 +173,7 @@ const Hero = () => {
                      asChild
                    >
                      <a
-                       href="https://docs.google.com/document/d/1xfcEfHy59FcFnKUwma5_oNAh6_0eZ0N5LzTEH3BbtLs/edit?tab=t.0"
+                       href={CONTACT.links.resume}
                        target="_blank"
                        rel="noopener noreferrer"
                      >
@@ -212,14 +195,14 @@ const Hero = () => {
             variants={itemVariants}
           >
             <a
-              href="mailto:eirracyu12@gmail.com"
+              href={`mailto:${CONTACT.email}`}
               className="text-gray-600 hover:text-blue-600 transition-colors duration-200"
               aria-label="Email"
             >
               <Mail size={24} />
             </a>
             <a
-              href="https://github.com/undesputed"
+              href={CONTACT.links.github}
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-600 hover:text-blue-600 transition-colors duration-200"
@@ -228,7 +211,7 @@ const Hero = () => {
               <Github size={24} />
             </a>
             <a
-              href="https://www.linkedin.com/in/carrie-yu-6a6395160/"
+              href={CONTACT.links.linkedin}
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-600 hover:text-blue-600 transition-colors duration-200"

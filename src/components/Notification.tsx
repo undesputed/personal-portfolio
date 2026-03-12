@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react'
 import { CheckCircle, XCircle, X } from 'lucide-react'
+import { NOTIFICATION_AUTO_CLOSE_MS } from '@/config/site'
 
 interface NotificationProps {
   type: 'success' | 'error'
@@ -13,10 +14,7 @@ interface NotificationProps {
 const Notification = ({ type, message, isVisible, onClose }: NotificationProps) => {
   useEffect(() => {
     if (isVisible) {
-      const timer = setTimeout(() => {
-        onClose()
-      }, 5000) // Auto close after 5 seconds
-
+      const timer = setTimeout(onClose, NOTIFICATION_AUTO_CLOSE_MS)
       return () => clearTimeout(timer)
     }
   }, [isVisible, onClose])
@@ -43,8 +41,10 @@ const Notification = ({ type, message, isVisible, onClose }: NotificationProps) 
           <p className="text-sm font-medium">{message}</p>
         </div>
         <button
+          type="button"
           onClick={onClose}
           className="ml-4 flex-shrink-0 text-gray-400 hover:text-gray-600"
+          aria-label="Close notification"
         >
           <X className="w-4 h-4" />
         </button>

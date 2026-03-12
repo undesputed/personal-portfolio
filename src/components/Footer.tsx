@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { Mail, Github, Linkedin } from 'lucide-react'
+import { CONTACT, NAV_SECTIONS, SITE } from '@/config/site'
 
 const Footer = () => {
   const currentYear = new Date().getFullYear()
@@ -19,21 +20,22 @@ const Footer = () => {
           <div className="grid md:grid-cols-3 gap-8 mb-8">
             {/* About Section */}
             <div>
-              <h3 className="text-2xl font-bold mb-4">Carrie A. Yu</h3>
+              <h3 className="text-2xl font-bold mb-4">{SITE.name}</h3>
               <p className="text-gray-300 mb-4 leading-relaxed">
-                Experienced Software Developer and Team Leader with 5+ years of expertise 
-                in full-stack development, mobile applications, and project management.
+                Experienced Software Developer and Team Leader with 5+ years of
+                expertise in full-stack development, mobile applications, and
+                project management.
               </p>
               <div className="flex space-x-4">
                 <a
-                  href="mailto:eirracyu12@gmail.com"
+                  href={`mailto:${CONTACT.email}`}
                   className="text-gray-300 hover:text-white transition-colors duration-200"
                   aria-label="Email"
                 >
                   <Mail className="w-5 h-5" />
                 </a>
                 <a
-                  href="https://github.com/undesputed"
+                  href={CONTACT.links.github}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-gray-300 hover:text-white transition-colors duration-200"
@@ -42,7 +44,7 @@ const Footer = () => {
                   <Github className="w-5 h-5" />
                 </a>
                 <a
-                  href="https://www.linkedin.com/in/carrie-yu-6a6395160/"
+                  href={CONTACT.links.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-gray-300 hover:text-white transition-colors duration-200"
@@ -53,68 +55,44 @@ const Footer = () => {
               </div>
             </div>
 
-            {/* Quick Links */}
+            {/* Quick Links - anchor links for accessibility and SEO */}
             <div>
               <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
-              <ul className="space-y-2">
-                <li>
-                  <button
-                    onClick={() => document.querySelector('#home')?.scrollIntoView({ behavior: 'smooth' })}
-                    className="text-gray-300 hover:text-white transition-colors duration-200"
-                  >
-                    Home
-                  </button>
-                </li>
-                <li>
-                  <button
-                    onClick={() => document.querySelector('#about')?.scrollIntoView({ behavior: 'smooth' })}
-                    className="text-gray-300 hover:text-white transition-colors duration-200"
-                  >
-                    About
-                  </button>
-                </li>
-                <li>
-                  <button
-                    onClick={() => document.querySelector('#experience')?.scrollIntoView({ behavior: 'smooth' })}
-                    className="text-gray-300 hover:text-white transition-colors duration-200"
-                  >
-                    Experience
-                  </button>
-                </li>
-                <li>
-                  <button
-                    onClick={() => document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' })}
-                    className="text-gray-300 hover:text-white transition-colors duration-200"
-                  >
-                    Projects
-                  </button>
-                </li>
-                <li>
-                  <button
-                    onClick={() => document.querySelector('#skills')?.scrollIntoView({ behavior: 'smooth' })}
-                    className="text-gray-300 hover:text-white transition-colors duration-200"
-                  >
-                    Skills
-                  </button>
-                </li>
-                <li>
-                  <button
-                    onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
-                    className="text-gray-300 hover:text-white transition-colors duration-200"
-                  >
-                    Contact
-                  </button>
-                </li>
-              </ul>
+              <nav aria-label="Footer navigation">
+                <ul className="space-y-2">
+                  {NAV_SECTIONS.map((item) => (
+                    <li key={item.id}>
+                      <a
+                        href={item.href}
+                        className="text-gray-300 hover:text-white transition-colors duration-200 block"
+                        onClick={(e) => {
+                          e.preventDefault()
+                          document
+                            .querySelector(item.href)
+                            ?.scrollIntoView({ behavior: 'smooth' })
+                        }}
+                      >
+                        {item.name}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
             </div>
 
             {/* Contact Info */}
             <div>
               <h4 className="text-lg font-semibold mb-4">Contact Info</h4>
               <div className="space-y-2 text-gray-300">
-                <p>📧 eirracyu12@gmail.com</p>
-                <p>📱 +63 977 132 4804</p>
-                <p>📍 Fatima, Ubay, Bohol, Philippines</p>
+                <p>
+                  <span aria-hidden="true">📧</span> {CONTACT.email}
+                </p>
+                <p>
+                  <span aria-hidden="true">📱</span> {CONTACT.phone}
+                </p>
+                <p>
+                  <span aria-hidden="true">📍</span> {CONTACT.location}
+                </p>
               </div>
             </div>
           </div>
@@ -123,7 +101,7 @@ const Footer = () => {
           <div className="border-t border-gray-700 pt-8">
             <div className="flex flex-col md:flex-row justify-between items-center">
               <p className="text-gray-300 text-sm mb-4 md:mb-0">
-                © {currentYear} Carrie A. Yu. All rights reserved.
+                © {currentYear} {SITE.name}. All rights reserved.
               </p>
             </div>
           </div>

@@ -5,27 +5,9 @@ import { ExternalLink, Github, Smartphone, Globe, Database, Code } from 'lucide-
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import { containerVariants, itemVariants } from '@/lib/animations'
 
 const Projects = () => {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        delayChildren: 0.3,
-        staggerChildren: 0.2
-      }
-    }
-  }
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1
-    }
-  }
-
   const projects = [
     {
       title: "EC Care Medical Laboratory System",
@@ -151,9 +133,9 @@ const Projects = () => {
           </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project, index) => (
+            {projects.map((project) => (
               <motion.div
-                key={index}
+                key={project.title}
                 variants={itemVariants}
                 whileHover={{ y: -5 }}
               >
@@ -184,8 +166,8 @@ const Projects = () => {
                     <div className="mb-4">
                       <h4 className="text-sm font-semibold text-gray-900 mb-2">Key Features:</h4>
                       <ul className="text-xs text-gray-600 space-y-1">
-                        {project.features.slice(0, 3).map((feature, idx) => (
-                          <li key={idx} className="flex items-center">
+                        {project.features.slice(0, 3).map((feature) => (
+                          <li key={feature} className="flex items-center">
                             <span className="w-1 h-1 bg-blue-600 rounded-full mr-2"></span>
                             {feature}
                           </li>
@@ -201,8 +183,8 @@ const Projects = () => {
                     <div className="mb-4">
                       <h4 className="text-sm font-semibold text-gray-900 mb-2">Technologies:</h4>
                       <div className="flex flex-wrap gap-1">
-                        {project.technologies.slice(0, 4).map((tech, idx) => (
-                          <Badge key={idx} variant="secondary" className="text-xs">
+{project.technologies.slice(0, 4).map((tech) => (
+                        <Badge key={tech} variant="secondary" className="text-xs">
                             {tech}
                           </Badge>
                         ))}

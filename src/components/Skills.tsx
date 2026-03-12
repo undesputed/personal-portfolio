@@ -4,27 +4,9 @@ import { motion } from 'framer-motion'
 import { Code, Database, Cloud, Smartphone, Users, Globe } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { containerVariantsTight, itemVariants } from '@/lib/animations'
 
 const Skills = () => {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        delayChildren: 0.3,
-        staggerChildren: 0.1
-      }
-    }
-  }
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1
-    }
-  }
-
   const skillCategories = [
     {
       title: "Frontend Development",
@@ -108,7 +90,7 @@ const Skills = () => {
       <div className="container mx-auto px-4">
         <motion.div
           className="max-w-6xl mx-auto"
-          variants={containerVariants}
+          variants={containerVariantsTight}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
@@ -122,9 +104,9 @@ const Skills = () => {
           </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-            {skillCategories.map((category, index) => (
+            {skillCategories.map((category) => (
               <motion.div
-                key={index}
+                key={category.title}
                 variants={itemVariants}
                 whileHover={{ y: -5 }}
               >
@@ -139,8 +121,8 @@ const Skills = () => {
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
-                      {category.skills.map((skill, skillIndex) => (
-                        <div key={skillIndex}>
+                      {category.skills.map((skill) => (
+                        <div key={skill.name}>
                           <div className="flex justify-between items-center mb-2">
                             <span className="text-sm font-medium text-gray-700">
                               {skill.name}
@@ -178,9 +160,9 @@ const Skills = () => {
               </CardHeader>
               <CardContent>
                 <div className="grid md:grid-cols-3 gap-6">
-                  {languages.map((language, index) => (
+                  {languages.map((language) => (
                     <div
-                      key={index}
+                      key={language.name}
                       className="text-center p-4 bg-blue-50 rounded-lg"
                     >
                       <h4 className="text-lg font-semibold text-gray-900 mb-2">
@@ -211,9 +193,9 @@ const Skills = () => {
                     "Stress and Time Management", "Can work under pressure",
                     "Planning and Organizational Skills", "Patience and Positive Attitude",
                     "Active Listening", "Leadership", "Dependability", "Open minded", "Adaptability"
-                  ].map((skill, index) => (
+                  ].map((skill) => (
                     <Badge
-                      key={index}
+                      key={skill}
                       variant="secondary"
                       className="bg-white text-gray-700 shadow-sm"
                     >

@@ -4,27 +4,9 @@ import { motion } from 'framer-motion'
 import { Calendar, MapPin, Users, Code2 } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { containerVariants, itemVariants } from '@/lib/animations'
 
 const Experience = () => {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        delayChildren: 0.3,
-        staggerChildren: 0.2
-      }
-    }
-  }
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1
-    }
-  }
-
   const experiences = [
     {
       company: "Hipe Japan",
@@ -103,9 +85,9 @@ const Experience = () => {
           </motion.div>
 
           <div className="space-y-8">
-            {experiences.map((exp, index) => (
+            {experiences.map((exp) => (
               <motion.div
-                key={index}
+                key={`${exp.company}-${exp.duration}`}
                 variants={itemVariants}
                 whileHover={{ y: -5 }}
               >
@@ -139,8 +121,8 @@ const Experience = () => {
                           Projects Handled
                         </h4>
                         <div className="flex flex-wrap gap-2">
-                          {exp.projects.map((project, idx) => (
-                            <Badge key={idx} variant="secondary" className="bg-blue-100 text-blue-800">
+                          {exp.projects.map((project) => (
+                            <Badge key={project} variant="secondary" className="bg-blue-100 text-blue-800">
                               {project}
                             </Badge>
                           ))}
@@ -152,8 +134,8 @@ const Experience = () => {
                       <div className="mb-6">
                         <h4 className="text-lg font-semibold text-gray-900 mb-3">Technologies Used</h4>
                         <div className="flex flex-wrap gap-2">
-                          {exp.technologies.map((tech, idx) => (
-                            <Badge key={idx} variant="outline">
+                          {exp.technologies.map((tech) => (
+                            <Badge key={tech} variant="outline">
                               {tech}
                             </Badge>
                           ))}
@@ -165,8 +147,8 @@ const Experience = () => {
                       <div>
                         <h4 className="text-lg font-semibold text-gray-900 mb-3">Databases</h4>
                         <div className="flex flex-wrap gap-2">
-                          {exp.databases.map((db, idx) => (
-                            <Badge key={idx} variant="secondary" className="bg-green-100 text-green-800">
+                          {exp.databases.map((db) => (
+                            <Badge key={db} variant="secondary" className="bg-green-100 text-green-800">
                               {db}
                             </Badge>
                           ))}

@@ -3,27 +3,9 @@
 import { motion } from 'framer-motion'
 import { Code, Users, Lightbulb, Target } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
+import { containerVariants, itemVariants } from '@/lib/animations'
 
 const About = () => {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        delayChildren: 0.3,
-        staggerChildren: 0.2
-      }
-    }
-  }
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1
-    }
-  }
-
   const features = [
     {
       icon: <Code className="w-8 h-8" />,
@@ -89,9 +71,9 @@ const About = () => {
             </motion.div>
 
             <motion.div className="grid grid-cols-2 gap-6" variants={itemVariants}>
-              {features.map((feature, index) => (
+              {features.map((feature) => (
                 <motion.div
-                  key={index}
+                  key={feature.title}
                   whileHover={{ y: -5 }}
                 >
                   <Card className="h-full hover:shadow-lg transition-shadow duration-300">

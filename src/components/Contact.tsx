@@ -10,6 +10,8 @@ import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import { sendContactEmail, ContactFormData } from '@/lib/emailService'
 import Notification from './Notification'
+import { containerVariants, itemVariants } from '@/lib/animations'
+import { CONTACT } from '@/config/site'
 
 const Contact = () => {
   const [formData, setFormData] = useState<ContactFormData>({
@@ -18,7 +20,7 @@ const Contact = () => {
     subject: '',
     message: ''
   })
-  
+
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [notification, setNotification] = useState<{
     type: 'success' | 'error'
@@ -29,25 +31,6 @@ const Contact = () => {
     message: '',
     isVisible: false
   })
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        delayChildren: 0.3,
-        staggerChildren: 0.2
-      }
-    }
-  }
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1
-    }
-  }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -92,22 +75,22 @@ const Contact = () => {
   const contactInfo = [
     {
       icon: <Mail className="w-6 h-6" />,
-      title: "Email",
-      value: "eirracyu12@gmail.com",
-      link: "mailto:eirracyu12@gmail.com"
+      title: 'Email',
+      value: CONTACT.email,
+      link: `mailto:${CONTACT.email}`,
     },
     {
       icon: <Phone className="w-6 h-6" />,
-      title: "Phone",
-      value: "+63 977 132 4804",
-      link: "tel:+639771324804"
+      title: 'Phone',
+      value: CONTACT.phone,
+      link: `tel:${CONTACT.phone.replace(/\s/g, '')}`,
     },
     {
       icon: <MapPin className="w-6 h-6" />,
-      title: "Location",
-      value: "Fatima, Ubay, Bohol, Philippines",
-      link: null
-    }
+      title: 'Location',
+      value: CONTACT.location,
+      link: null,
+    },
   ]
 
   return (
@@ -172,7 +155,7 @@ const Contact = () => {
                     <div className="flex space-x-4">
                       <Button size="icon" asChild>
                         <a
-                          href="mailto:eirracyu12@gmail.com"
+                          href={`mailto:${CONTACT.email}`}
                           aria-label="Email"
                         >
                           <Mail className="w-5 h-5" />
@@ -180,7 +163,7 @@ const Contact = () => {
                       </Button>
                       <Button size="icon" variant="secondary" asChild>
                         <a
-                          href="https://github.com/undesputed"
+                          href={CONTACT.links.github}
                           target="_blank"
                           rel="noopener noreferrer"
                           aria-label="GitHub"
@@ -190,7 +173,7 @@ const Contact = () => {
                       </Button>
                       <Button size="icon" variant="secondary" asChild>
                         <a
-                          href="https://www.linkedin.com/in/carrie-yu-6a6395160/"
+                          href={CONTACT.links.linkedin}
                           target="_blank"
                           rel="noopener noreferrer"
                           aria-label="LinkedIn"
@@ -214,7 +197,7 @@ const Contact = () => {
                                asChild
                              >
                                <a
-                                 href="https://docs.google.com/document/d/1xfcEfHy59FcFnKUwma5_oNAh6_0eZ0N5LzTEH3BbtLs/edit?tab=t.0"
+                                 href={CONTACT.links.resume}
                                  target="_blank"
                                  rel="noopener noreferrer"
                                >

@@ -1,11 +1,10 @@
 import emailjs from '@emailjs/browser';
+import { CONTACT } from '@/config/site';
 
-// EmailJS configuration
 const EMAILJS_PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
 const EMAILJS_SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
 const EMAILJS_TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
 
-// Initialize EmailJS
 if (EMAILJS_PUBLIC_KEY) {
   emailjs.init(EMAILJS_PUBLIC_KEY);
 }
@@ -22,91 +21,80 @@ export interface EmailResponse {
   message: string;
 }
 
-export const sendContactEmail = async (formData: ContactFormData): Promise<EmailResponse> => {
-  try {
-    // Validate environment variables
-    if (!EMAILJS_PUBLIC_KEY || !EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID) {
-      throw new Error('EmailJS configuration is missing. Please check your environment variables.');
-    }
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const USER_MESSAGE_SUCCESS =
+  'Thank you for your message! I will get back to you as soon as possible.';
+const USER_MESSAGE_GENERIC_ERROR =
+  'An unexpected error occurred. Please try again later.';
 
-    // Validate form data
-    if (!formData.name || !formData.email || !formData.subject || !formData.message) {
-      throw new Error('All fields are required.');
+function extractErrorMessage(error: unknown): string {
+  if (error && typeof error === 'object') {
+    const obj = error as Record<string, unknown>;
+    if (typeof obj.text === 'string') return obj.text;
+    if (typeof obj.message === 'string') return obj.message;
+    if (typeof obj.status === 'number') {
+      return `Email service error (Status: ${obj.status})`;
     }
+  }
+  if (typeof error === 'string') return error;
+  return USER_MESSAGE_GENERIC_ERROR;
+}
 
-    // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) {
-      throw new Error('Please enter a valid email address.');
-    }
-
-    // Prepare template parameters
-    const templateParams = {
-      from_name: formData.name,
-      from_email: formData.email,
-      to_email: 'eirracyu12@gmail.com', // Your email address
-      reply_to: formData.email, // For reply-to functionality
-      subject: formData.subject,
-      message: formData.message,
-      sent_date: new Date().toLocaleString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-        timeZoneName: 'short'
-      })
+export async function sendContactEmail(
+  formData: ContactFormData
+): Promise<EmailResponse> {
+  if (!EMAILJS_PUBLIC_KEY || !EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID) {
+    return {
+      success: false,
+      message:
+        'Email service is not configured. Please try again later or contact directly.',
     };
+  }
 
-    // Send email using EmailJS
-    console.log('Sending email with params:', templateParams);
-    console.log('Service ID:', EMAILJS_SERVICE_ID);
-    console.log('Template ID:', EMAILJS_TEMPLATE_ID);
-    
+  const { name, email, subject, message } = formData;
+  if (!name?.trim() || !email?.trim() || !subject?.trim() || !message?.trim()) {
+    return { success: false, message: 'All fields are required.' };
+  }
+
+  if (!EMAIL_REGEX.test(email)) {
+    return { success: false, message: 'Please enter a valid email address.' };
+  }
+
+  const templateParams = {
+    from_name: name.trim(),
+    from_email: email.trim(),
+    to_email: CONTACT.email,
+    reply_to: email.trim(),
+    subject: subject.trim(),
+    message: message.trim(),
+    sent_date: new Date().toLocaleString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      timeZoneName: 'short',
+    }),
+  };
+
+  try {
     const response = await emailjs.send(
       EMAILJS_SERVICE_ID,
       EMAILJS_TEMPLATE_ID,
       templateParams
     );
 
-    console.log('EmailJS Response:', response);
-
     if (response.status === 200) {
-      return {
-        success: true,
-        message: 'Thank you for your message! I will get back to you as soon as possible.'
-      };
-    } else {
-      throw new Error(`Failed to send email. Status: ${response.status}`);
+      return { success: true, message: USER_MESSAGE_SUCCESS };
     }
-
-  } catch (error: unknown) {
-    console.error('EmailJS Error Details:', error);
-    console.error('Error type:', typeof error);
-    console.error('Error keys:', Object.keys(error || {}));
-    
-    // Extract error message from EmailJS error object
-    let errorMessage = 'An unexpected error occurred. Please try again later.';
-    
-    if (error && typeof error === 'object') {
-      const errorObj = error as Record<string, unknown>;
-      // EmailJS errors often have a 'text' property
-      if (typeof errorObj.text === 'string') {
-        errorMessage = errorObj.text;
-      } else if (typeof errorObj.message === 'string') {
-        errorMessage = errorObj.message;
-      } else if (typeof errorObj.status === 'number') {
-        errorMessage = `Email service error (Status: ${errorObj.status})`;
-      }
-    } else if (typeof error === 'string') {
-      errorMessage = error;
-    }
-    
-    console.error('Extracted error message:', errorMessage);
-    
     return {
       success: false,
-      message: errorMessage
+      message: `Failed to send email. Status: ${response.status}`,
+    };
+  } catch (error: unknown) {
+    return {
+      success: false,
+      message: extractErrorMessage(error),
     };
   }
-};
+}
