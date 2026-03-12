@@ -19,7 +19,7 @@ export const CONTACT = {
     (process.env.NEXT_PUBLIC_CONTACT_PHONE as string) || '+63 977 132 4804',
   location:
     (process.env.NEXT_PUBLIC_CONTACT_LOCATION as string) ||
-    'Fatima, Ubay, Bohol, Philippines',
+    'Cebu City',
   links: {
     github: 'https://github.com/undesputed',
     linkedin: 'https://www.linkedin.com/in/carrie-yu-6a6395160/',
