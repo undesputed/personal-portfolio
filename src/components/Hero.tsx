@@ -130,7 +130,7 @@ const Hero = () => {
           >
             <div className="w-32 h-32 mx-auto rounded-full overflow-hidden shadow-lg">
               <Image
-                src="/logo.png"
+                src={SITE.logo.src}
                 alt={`${SITE.name} profile`}
                 width={128}
                 height={128}

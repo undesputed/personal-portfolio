@@ -34,8 +34,8 @@ const Header = () => {
         <div className="flex items-center justify-between">
           <div className="flex items-center">
             <Image
-              src="/logo.png"
-              alt={`${SITE.name} logo`}
+              src={SITE.logo.src}
+              alt={SITE.logo.alt}
               width={40}
               height={40}
               className="h-10 w-auto"

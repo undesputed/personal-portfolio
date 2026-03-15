@@ -10,6 +10,11 @@ export const SITE = {
     'Experienced Software Developer specializing in React, React Native, Java, Spring Boot, and full-stack development. Team leader with 5+ years of experience in building scalable applications.',
   url:
     (process.env.NEXT_PUBLIC_SITE_URL as string) || 'https://carrie-yu-portfolio.vercel.app',
+  /** Logo path (public URL). Change this when replacing the logo file. */
+  logo: {
+    src: '/logo.png',
+    alt: 'Carrie A. Yu logo',
+  },
 } as const;
 
 export const CONTACT = {

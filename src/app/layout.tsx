@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   icons: {
     icon: '/favicon.ico',
     shortcut: '/favicon.ico',
-    apple: '/logo.png',
+    apple: SITE.logo.src,
   },
   openGraph: {
     title: SITE.title,
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     locale: 'en_US',
     images: [
       {
-        url: '/logo.png',
+        url: SITE.logo.src,
         width: 1200,
         height: 630,
         alt: `${SITE.name} - Software Developer`,
