@@ -12,7 +12,7 @@ const Hero = () => {
   return (
     <section id="home" className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 pt-20 relative overflow-hidden">
       {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
+      <div className="absolute inset-0 opacity-5 pointer-events-none">
         <div className="absolute inset-0" style={{
           backgroundImage: `
             radial-gradient(circle at 25% 25%, #2563eb 2px, transparent 2px),
@@ -26,7 +26,7 @@ const Hero = () => {
       </div>
       
       {/* Tech Pattern Overlay */}
-      <div className="absolute inset-0 opacity-10">
+      <div className="absolute inset-0 opacity-10 pointer-events-none">
         <motion.div 
           className="absolute top-20 left-10 text-6xl text-blue-200 font-mono select-none"
           animate={{ 
@@ -117,7 +117,7 @@ const Hero = () => {
           {"&&"}
         </motion.div>
       </div>
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 relative z-10">
         <motion.div
           className="text-center max-w-4xl mx-auto"
           variants={containerVariants}

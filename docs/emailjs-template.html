@@ -1,0 +1,95 @@
+<!--
+  EmailJS Template for Carrie A. Yu Portfolio Contact Form
+  ========================================================
+  Paste the HTML below into the EmailJS template "Content" (HTML) editor.
+
+  Variables used (must match src/lib/emailService.ts templateParams):
+    {{from_name}}   - sender's name
+    {{from_email}}  - sender's email
+    {{subject}}     - message subject
+    {{message}}     - message body
+    {{sent_date}}   - formatted send timestamp
+    {{to_email}}    - your receiving address (also usable in template settings)
+    {{reply_to}}    - sender's email (use in Reply-To setting)
+
+  Recommended EmailJS template SETTINGS (right panel, not the HTML body):
+    Subject:    New message from {{from_name}}: {{subject}}
+    To Email:   {{to_email}}        (or hardcode eirracyu12@gmail.com)
+    From Name:  {{from_name}}
+    Reply To:   {{reply_to}}
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>New Portfolio Contact Message</title>
+  </head>
+  <body style="margin:0; padding:0; background-color:#eef2ff; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#eef2ff; padding:32px 16px;">
+      <tr>
+        <td align="center">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px; background-color:#ffffff; border-radius:12px; overflow:hidden; box-shadow:0 4px 16px rgba(37,99,235,0.10);">
+            <!-- Header -->
+            <tr>
+              <td style="background:linear-gradient(135deg,#2563eb,#1d4ed8); padding:28px 32px;">
+                <h1 style="margin:0; color:#ffffff; font-size:20px; font-weight:700;">New Contact Message</h1>
+                <p style="margin:6px 0 0; color:#dbeafe; font-size:13px;">From your portfolio website</p>
+              </td>
+            </tr>
+
+            <!-- Body -->
+            <tr>
+              <td style="padding:32px;">
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td style="padding:0 0 16px;">
+                      <p style="margin:0 0 4px; color:#6b7280; font-size:12px; text-transform:uppercase; letter-spacing:0.5px;">From</p>
+                      <p style="margin:0; color:#111827; font-size:16px; font-weight:600;">{{from_name}}</p>
+                      <p style="margin:2px 0 0; font-size:14px;">
+                        <a href="mailto:{{from_email}}" style="color:#2563eb; text-decoration:none;">{{from_email}}</a>
+                      </p>
+                    </td>
+                  </tr>
+
+                  <tr><td style="border-top:1px solid #e5e7eb; padding:0;"></td></tr>
+
+                  <tr>
+                    <td style="padding:16px 0;">
+                      <p style="margin:0 0 4px; color:#6b7280; font-size:12px; text-transform:uppercase; letter-spacing:0.5px;">Subject</p>
+                      <p style="margin:0; color:#111827; font-size:16px; font-weight:600;">{{subject}}</p>
+                    </td>
+                  </tr>
+
+                  <tr><td style="border-top:1px solid #e5e7eb; padding:0;"></td></tr>
+
+                  <tr>
+                    <td style="padding:16px 0 0;">
+                      <p style="margin:0 0 8px; color:#6b7280; font-size:12px; text-transform:uppercase; letter-spacing:0.5px;">Message</p>
+                      <div style="background-color:#f9fafb; border:1px solid #e5e7eb; border-radius:8px; padding:16px; color:#374151; font-size:15px; line-height:1.6; white-space:pre-wrap;">{{message}}</div>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <!-- Reply button -->
+            <tr>
+              <td style="padding:0 32px 32px;">
+                <a href="mailto:{{from_email}}?subject=Re: {{subject}}" style="display:inline-block; background-color:#2563eb; color:#ffffff; font-size:14px; font-weight:600; text-decoration:none; padding:12px 24px; border-radius:8px;">Reply to {{from_name}}</a>
+              </td>
+            </tr>
+
+            <!-- Footer -->
+            <tr>
+              <td style="background-color:#f9fafb; padding:20px 32px; border-top:1px solid #e5e7eb;">
+                <p style="margin:0; color:#9ca3af; font-size:12px;">Sent on {{sent_date}}</p>
+                <p style="margin:4px 0 0; color:#9ca3af; font-size:12px;">Delivered to {{to_email}} via your portfolio contact form.</p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
